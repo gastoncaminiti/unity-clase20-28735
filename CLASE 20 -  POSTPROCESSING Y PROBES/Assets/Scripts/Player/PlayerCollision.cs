@@ -17,7 +17,7 @@ public class PlayerCollision : MonoBehaviour
 
     private void Start() {
         pmPlayer = GetComponent<PlayerMovement>();
-        OnLivesChange?.Invoke(hitPoints);
+        //OnLivesChange?.Invoke(hitPoints);
     }
 
     // Start is called before the first frame update

@@ -25,19 +25,23 @@ public class PlayerMovement : MonoBehaviour
     private bool isJump, isBack, isForward, isStatic, canJump;
     private bool canShoot = true;
 
-    void Start()
+    private void Awake()
     {
         parentBullets = GameObject.Find("DinamycBullets");
         audioPlayer = GetComponent<AudioSource>();
         rbPlayer = GetComponent<Rigidbody>();
         mgInventory = GetComponent<InventoryManager>();
         svManager = FindObjectOfType<SavepointsManager>();
+        PlayerEvent.onDeath += GameOverBehaviour;
+    }
+
+    void Start()
+    {
         if (svManager != null)
         {
             transform.position = svManager.GetSavePoint(GameManager.instance.lastSP).position;
         }
         LoadProfile();
-        PlayerEvent.onDeath += GameOverBehaviour;
     }
 
     public void LoadProfile()
@@ -126,7 +130,7 @@ public class PlayerMovement : MonoBehaviour
 
         if (!isBack && !isForward && canJump && !isJump)
         {
-            Vector3 stopVelocity = new Vector3(1f, rbPlayer.velocity.y, 1f);
+            Vector3 stopVelocity = new Vector3(0f, rbPlayer.velocity.y, 0f);
             rbPlayer.velocity = stopVelocity;
         }
 
